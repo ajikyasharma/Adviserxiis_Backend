@@ -18,7 +18,7 @@ app.use(express.urlencoded({extended: false}));
 dotenv.config()
 
 app.get('/', (req,res) => {
-    res.send("Helllo world")
+    res.send("Hello world")
 })
 
 
