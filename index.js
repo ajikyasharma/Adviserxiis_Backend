@@ -27,8 +27,8 @@ app.get('/', (req,res) => {
     
 try {
         const razorpay = new Razorpay({
-            key_id: process.env.RAZERPAY_KEY_ID,
-            key_secret: process.env.RAZERPAY_SECRET,
+            key_id:"rzp_live_fHsSBLQQOxeKlA",
+            key_secret:"jbycwjZLOrVfRDs77i2kHM6x",
         });
     
         const options = req.body;
@@ -51,7 +51,7 @@ try {
        
     const { razorpay_payment_id, razorpay_order_id, razorpay_signature} = req.body
 
-    const sha = crypto.createHmac("sha256",process.env.RAZERPAY_SECRET);
+    const sha = crypto.createHmac("sha256","jbycwjZLOrVfRDs77i2kHM6x");
     // order_id + "|" + razorpay_payment_id
     sha.update(`${razorpay_order_id}|${razorpay_payment_id}`);
 
