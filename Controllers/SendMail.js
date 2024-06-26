@@ -19,7 +19,7 @@ const generateOTP = () => {
 
 
   async function getUser(userId) {
-    const nodeRef = ref(database, `advisors/${userId}`);
+    const nodeRef = ref(database, `advisers/${userId}`);
     try {
       const snapshot = await get(nodeRef);
       if (snapshot.exists()) {
@@ -36,7 +36,7 @@ const generateOTP = () => {
 
   async function saveOTP(userid, otp)
   {
-    update(ref(database, 'advisors/' + userid),{
+    update(ref(database, 'advisers/' + userid),{
         otp:otp
       });
   }
