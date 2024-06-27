@@ -1,9 +1,11 @@
 import express from 'express'
 import cors from 'cors'
 import { sendMail } from './Controllers/SendMail.js';
+import { sendConfirmationMail } from './Controllers/SendConfirmationMail.js';
 import Razorpay from 'razorpay';
 import dotenv from 'dotenv';
 import crypto from 'crypto';
+import bodyParser from 'body-parser';
 
 const PORT = process.env.PORT || 8000
 
@@ -13,6 +15,7 @@ const app = express()
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
 
 dotenv.config()
@@ -69,6 +72,8 @@ try {
   })
 
 app.get('/sendemail/:userId', sendMail)
+
+app.post('/sendconfirmationemail', sendConfirmationMail)
 
 app.listen(PORT, () =>{
     console.log(`Server is running at ${PORT}`)
