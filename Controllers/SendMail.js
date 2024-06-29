@@ -60,10 +60,12 @@ const sendMail =  async(req, res) =>{
 
         const otp = generateOTP();
         const user = await getUser(userId);
-        await saveOTP(userId,otp )
+      
 
         if(user && user.email)
           {
+
+            await saveOTP(userId,otp )
             const info = await transporter.sendMail({
               from: 'adviserxiis@gmail.com', // sender address
               to: user.email, // list of receivers
@@ -81,7 +83,7 @@ const sendMail =  async(req, res) =>{
             res.status(200).json("OTP send successfully")
           }
 
-
+           res.json("User does not exist with this email")
         
       }
       
