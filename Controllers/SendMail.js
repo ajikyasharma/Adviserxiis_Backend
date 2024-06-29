@@ -62,21 +62,25 @@ const sendMail =  async(req, res) =>{
         const user = await getUser(userId);
         await saveOTP(userId,otp )
 
-        const info = await transporter.sendMail({
-          from: 'adviserxiis@gmail.com', // sender address
-          to: user.email, // list of receivers
-          subject: "Verification mail from Adviserxiis", // Subject line
-          text: `Your one time password for signup is ${otp}. Thank you for joining with Adviserxiis.`, // plain text body
-        //   html: "<b>Hello world?</b>",  html body
-        });
+        if(user && user.email)
+          {
+            const info = await transporter.sendMail({
+              from: 'adviserxiis@gmail.com', // sender address
+              to: user.email, // list of receivers
+              subject: "Verification mail from Adviserxiis", // Subject line
+              text: `Your one time password for signup is ${otp}. Thank you for joining with Adviserxiis.`, // plain text body
+            //   html: "<b>Hello world?</b>",  html body
+            });
+    
+    
+     
+          
+            // console.log("Message sent: %s", info.messageId);
+            // Message sent: <d786aa62-4e0a-070a-47ed-0b0666549519@ethereal.email>
+    
+            res.status(200).json("OTP send successfully")
+          }
 
-
- 
-      
-        // console.log("Message sent: %s", info.messageId);
-        // Message sent: <d786aa62-4e0a-070a-47ed-0b0666549519@ethereal.email>
-
-        res.status(200).json("OTP send successfully")
 
         
       }
