@@ -81,6 +81,17 @@ function convertDateFormat(dateString) {
   }
 
 
+  async function saveMeetingId(paymentId, meetingId) {
+    const nodeRef = ref(database, `payments/${paymentId}`);
+    try {
+      await update(nodeRef, { meetingid: meetingId });
+      // console.log('Meeting ID saved successfully');
+    } catch (error) {
+      console.error('Error saving meeting ID:', error);
+    }
+  }
+
+
 
 const sendConfirmationMail =  async(req, res) =>{
 
@@ -213,7 +224,7 @@ const sendConfirmationMail =  async(req, res) =>{
 
 
  
-      
+            saveMeetingId(paymentid, meetingid)
         // console.log("Message sent: %s", info.messageId);
         // Message sent: <d786aa62-4e0a-070a-47ed-0b0666549519@ethereal.email>
 
@@ -223,6 +234,7 @@ const sendConfirmationMail =  async(req, res) =>{
       }
       
       sendConfirmationMail().catch(console.error);
+    
 } 
 
 export { sendConfirmationMail }
